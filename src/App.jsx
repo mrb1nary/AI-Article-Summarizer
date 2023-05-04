@@ -7,7 +7,7 @@ function App() {
   return (
     <main>
       <div className="main">
-        <div className="main-gradient animation:spin 1s infinite" />
+        <div className="main-gradient" />
       </div>
 
       <div className="app">
