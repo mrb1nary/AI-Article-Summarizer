@@ -2,7 +2,7 @@ import { AiFillGithub } from "react-icons/ai";
 
 function Footer() {
   return (
-    <footer className="absolute bottom-5 w-full">
+    <footer className="fixed bottom-5 w-full">
       <div className="flex flex-col items-center justify-center">
         <p className="text-lg text-gray-700">
           Made with 💖 and 🍵 by{" "}

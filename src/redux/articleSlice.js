@@ -18,7 +18,7 @@ export const articleSlice = createApi({
   endpoints: (builder) => ({
     getSummary: builder.query({
       query: (params) =>
-        `summarize?url=${encodeURIComponent(params.articleUrl)}$length=4`,
+        `summarize?url=${encodeURIComponent(params.articleUrl)}&length=3`,
     }),
   }),
 });

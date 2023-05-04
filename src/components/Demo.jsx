@@ -1,4 +1,5 @@
 import { AiOutlineLink } from "react-icons/ai";
+import { BsFillClipboard2Fill } from "react-icons/bs";
 import { useLazyGetSummaryQuery } from "../redux/articleSlice";
 import { useState, useEffect } from "react";
 import loader from "../assets/loader.svg";
@@ -19,6 +20,10 @@ function Demo() {
     summary: "",
   });
 
+  const handleCopy = (copyUrl) => {
+    navigator.clipboard.writeText(copyUrl);
+  };
+
   const [articleHistory, setArticleHistory] = useState([]);
 
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
@@ -37,6 +42,8 @@ function Demo() {
       localStorage.setItem("articleHistory", JSON.stringify(newArticleHistory));
     }
   }
+
+  console.log(article.summary);
 
   return (
     <div className="mt-10 max-w-xl w-full text-center m-auto flex-col items-center justify-center">
@@ -64,6 +71,7 @@ function Demo() {
             <p>↵</p>
           </button>
         </form>
+
         {/* {Browser History} */}
         <div className="flex flex-col max-h-60 overflow-y-auto gap-1">
           {articleHistory.map((article, index) => (
@@ -72,13 +80,20 @@ function Demo() {
               onClick={() => {
                 setArticle(article);
               }}
-              className="flex flex-col gap-1 p-2 border border-gray-200 rounded-md"
+              className="p-3 flex justify-start items-center flex-row bg-white border border-gray-200 gap-3 rounded-lg cursor-pointer"
             >
+              <div
+                className="w-7 h-7 rounded-full bg-white/10 backdrop-blur flex justify-center items-center cursor-pointer"
+                onClick={() => handleCopy(item.url)}
+              >
+                <BsFillClipboard2Fill className="w-[60%] h-[60%] object-contain" />
+              </div>
               <p>{article.url}</p>
             </div>
           ))}
         </div>
       </div>
+
       {/* {Display Results} */}
       <div className="my-10 max-w-full flex justify-center items-center">
         {isFetching ? (
@@ -92,13 +107,10 @@ function Demo() {
           article.summary && (
             <div className="flex flex-col gap-3">
               <h2 className="font-bold text-gray-600 text-xl">
-                Article{" "}
-                <span className="bg-gradient-to-r from-green-200 via bg-green-400 to-green-500">
-                  Summary
-                </span>
+                Article <span className="text-orange-400">Summary</span>
               </h2>
               <div className="">
-                <p className="font-medium text-sm text-gray-700">
+                <p className="font-medium text-lg text-gray-900 mb-[200px] leading-9 z-20">
                   {article.summary}
                 </p>
               </div>
